@@ -1,7 +1,7 @@
 const express = require('express')
 const app = express()
 const morgan = require('morgan')
-
+const mongoosee = require('mongoose')
 
 require('dotenv/config')
 
@@ -25,7 +25,17 @@ app.post(`${api}/products`, (req, res) =>{
     res.send(newProduct)
 })
 
-app.listen(3000, ()=>{
-    console.log(api)
+mongoosee.connect(process.env.URI_MONGODB, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+})
+.then(()=>{
+    console.log('Database Connection is ready....')
+})
+.catch((err)=>{
+    console.error(err)
+})
+
+app.listen(3000, ()=>{    
     console.log('server is running on http://localhost:3000')
 })
