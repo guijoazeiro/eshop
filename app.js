@@ -5,21 +5,14 @@ const mongoose = require('mongoose')
 
 require('dotenv/config')
 
+const Product = require('./models/product')
+
 app.use(express.json())
 app.use(morgan('tiny'))
 
-const productSchema = mongoose.Schema({
-    name: String,
-    image: String,
-    countInStock: {
-        type: Number,
-        required: true
-    }
-})
-
-const Product = mongoose.model('Product', productSchema)
-
 const api = process.env.API_URL
+
+
 
 app.get(`${api}/products`, async (req, res) => {
     const productList = await Product.find()
