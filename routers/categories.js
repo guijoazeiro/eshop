@@ -3,13 +3,24 @@ const express = require('express')
 const router = express.Router();
 
 router.get(`/`, async (req, res) => {
-    const categoryList = await Category.find();
+    const categoryList = await Category.find()
 
     if (!categoryList) {
         res.status(500).json({ success: false })
     }
-    res.send(categoryList)
+    res.status(200).send(categoryList)
 })
+
+router.get(`/:id`, async (req, res) => {
+    const category = await Category.findById(req.params.id)
+    
+    if (!category) {
+        res.status(500).json({ message: 'The category with given id was not found!', success: false })
+    }
+    res.status(200).send(category)
+})
+
+
 
 router.post('/', async (req, res) => {
     let category = new Category({
@@ -36,7 +47,6 @@ router.delete('/:id', (req, res) => {
         }).catch(err =>{
             return res.status(400).json({success: false, error: err})
         })
-
 })
 
 module.exports = router
