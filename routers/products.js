@@ -51,7 +51,7 @@ router.post(`/`, async (req, res) => {
 
 router.put('/:id', async (req, res) => {
 
-    if(!mongoose.isValidObjectId(req.params.id)){
+    if (!mongoose.isValidObjectId(req.params.id)) {
         res.status(400).send('Invalid Product id')
     }
 
@@ -78,7 +78,7 @@ router.put('/:id', async (req, res) => {
         { new: true }
     )
 
-    if(!product){
+    if (!product) {
         return res.status(500).send('the product cannot be updated')
     }
 
@@ -97,6 +97,17 @@ router.delete('/:id', (req, res) => {
         }).catch(err => {
             return res.status(400).json({ success: false, error: err })
         })
+})
+
+router.get('/get/count', async (req, res) => {
+    const productCount = await Product.countDocuments((count) => count)
+
+    if (!productCount) {
+        res.status(500).json({ success: false })        
+    }
+    res.send({
+       count: productCount
+    })
 })
 
 module.exports = router
