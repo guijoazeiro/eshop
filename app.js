@@ -11,6 +11,8 @@ require('dotenv/config')
 
 const productsRouter = require('./routers/products')
 const categoryRouter = require('./routers/categories')
+const userRouter = require('./routers/users')
+
 app.use(express.json())
 app.use(morgan('tiny'))
 
@@ -18,6 +20,7 @@ const api = process.env.API_URL
 
 app.use(`${api}/products`, productsRouter)
 app.use(`${api}/category`, categoryRouter)
+app.use(`${api}/users`, userRouter)
 
 mongoose.connect(process.env.URI_MONGODB, {
     useNewUrlParser: true,
