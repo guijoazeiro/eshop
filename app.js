@@ -19,12 +19,14 @@ app.use(errorHandler)
 const productsRouter = require('./routers/products')
 const categoryRouter = require('./routers/categories')
 const userRouter = require('./routers/users')
+const ordersRouter = require('./routers/orders')
 
 const api = process.env.API_URL
 
 app.use(`${api}/products`, productsRouter)
 app.use(`${api}/category`, categoryRouter)
 app.use(`${api}/users`, userRouter)
+app.use(`${api}/orders`, ordersRouter);
 
 mongoose.connect(process.env.URI_MONGODB, {
     useNewUrlParser: true,
