@@ -1,7 +1,7 @@
-const { Order } = require('../models/order');
-const express = require('express');
-const { OrderItem } = require('../models/order-item');
-const router = express.Router();
+const { Order } = require('../models/order')
+const express = require('express')
+const { OrderItem } = require('../models/order-item')
+const router = express.Router()
 
 router.get(`/`, async (req, res) => {
     const orderList = await Order.find().populate('user', 'name').sort({ 'dateOrdered': -1 })
@@ -19,7 +19,7 @@ router.get(`/:id`, async (req, res) => {
             path: 'orderItems', populate: {
                 path: 'product', populate: 'category'
             }
-        });
+        })
 
     if (!order) {
         res.status(500).json({ success: false })
@@ -36,7 +36,7 @@ router.post('/', async (req, res) => {
 
         newOrderItem = await newOrderItem.save()
 
-        return newOrderItem._id;
+        return newOrderItem._id
     }))
     const orderItemsIdsResolved = await orderItemsIds
 
@@ -80,7 +80,7 @@ router.put('/:id', async (req, res) => {
     if (!order)
         return res.status(400).send('the order cannot be update!')
 
-    res.send(order);
+    res.send(order)
 })
 
 router.delete('/:id', (req, res) => {
@@ -118,7 +118,19 @@ router.get(`/get/count`, async (req, res) =>{
     } 
     res.send({
         orderCount: orderCount
-    });
+    })
+})
+
+router.get(`/get/userorders/:userid`, async (req, res) =>{
+    const userOrderList = await Order.find({user: req.params.userid}).populate({ 
+        path: 'orderItems', populate: {
+            path : 'product', populate: 'category'} 
+        }).sort({'dateOrdered': -1})
+
+    if(!userOrderList) {
+        res.status(500).json({success: false})
+    } 
+    res.send(userOrderList)
 })
 
 
