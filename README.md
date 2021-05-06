@@ -1,5 +1,10 @@
 # E-Commerce Web API
 
+<p align="center">
+  <img alt="GitHub top language" src="https://img.shields.io/github/languages/top/guijoazeiro/eshop">
+  <img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/guijoazeiro/eshop">
+  <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/guijoazeiro/eshop">
+</p>
 
 # Introduction
 In this repository I created a REST API for a complete e-commerce using Express, MongoDB and JWT Authentication 
